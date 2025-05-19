@@ -53,19 +53,22 @@ class AddLogoView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 3.h),
-            Container(
-              width: double.infinity,
-              height: 13.h,
-              padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: double.infinity,
+                height: 13.h,
+                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                 ),
-              ),
-              child: SvgPicture.asset(
-                'assets/svg/add_logo.svg',
-                fit: BoxFit.fill,
+                child: SvgPicture.asset(
+                  'assets/svg/add_logo.svg',
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             Spacer(),
