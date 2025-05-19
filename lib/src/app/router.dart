@@ -5,6 +5,9 @@ class RouterConst {
   static const String splash = 'splash';
   static const String splashGet = 'splashGet';
   static const String onboarding = 'onboarding';
+  static const String saveEmail = 'saveEmail';
+  static const String addLogo = 'addLogo';
+  static const String auth = 'auth';
 }
 
 class RouterConf {
@@ -25,6 +28,21 @@ class RouterConf {
         name: RouterConst.onboarding,
         path: '/onboarding',
         builder: (context, state) => const OnboardingView(),
+      ),
+      GoRoute(
+        name: RouterConst.auth,
+        path: '/auth',
+        builder: (context, state) => const AuthView(),
+      ),
+      GoRoute(
+        name: RouterConst.saveEmail,
+        path: '/saveEmail',
+        builder: (context, state) => const SaveYourEmailView(),
+      ),
+      GoRoute(
+        name: RouterConst.addLogo,
+        path: '/addLogo',
+        builder: (context, state) => const AddLogoView(),
       ),
     ],
   );

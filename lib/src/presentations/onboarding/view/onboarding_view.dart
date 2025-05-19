@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:invoice_maker/src/components/custom_buttom.dart';
 import 'package:invoice_maker/src/components/custom_scaffold.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -10,11 +12,43 @@ class OnboardingView extends StatefulWidget {
 }
 
 class _OnboardingViewState extends State<OnboardingView> {
-  List images = <String>[
-    'assets/images/on1.png',
-    'assets/images/on2.png',
-    'assets/images/on3.png',
+  final PageController _controller = PageController();
+  int _currentPage = 0;
+
+  final List<Map<String, String>> pages = [
+    {
+      'image': 'assets/images/on1.png',
+      'title': 'Welcome to Receipts',
+      'desc1': 'Create professional invoices in seconds.',
+      'desc2':
+          'Perfect for freelancers, small businesses, and anyone who values their time.',
+    },
+    {
+      'image': 'assets/images/on2.png',
+      'title': 'Full control over your invoices',
+      'desc1': 'Generate, edit, and send invoices from your phone.',
+      'desc2':
+          'Keep track of your history, monitor payments, and automate your workflow.',
+    },
+    {
+      'image': 'assets/images/on3.png',
+      'title': 'Simple and intuitive',
+      'desc1': 'User-friendly interface with flexible settings.',
+      'desc2': 'Work easily — anywhere, anytime.',
+    },
   ];
+
+  void _nextPage() {
+    if (_currentPage < pages.length - 1) {
+      _controller.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      context.push('/auth');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -22,10 +56,13 @@ class _OnboardingViewState extends State<OnboardingView> {
         padding: EdgeInsets.symmetric(horizontal: 6.w),
         child: Column(
           children: [
+            SizedBox(height: 1.h),
             Align(
               alignment: Alignment.topRight,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.push('/auth');
+                },
                 child: Text(
                   'Skip',
                   style: TextStyle(
@@ -37,117 +74,90 @@ class _OnboardingViewState extends State<OnboardingView> {
               ),
             ),
             SizedBox(height: 2.h),
-            Container(
-              width: double.infinity,
-              height: 60.h,
-              decoration: ShapeDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/onboarding_container_bg.png',
-                  ),
-                  fit: BoxFit.fill,
-                ),
-                color: const Color(0xFF07FB1E),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              child: Center(
-                child: Container(
-                  width: 80.w,
-                  height: 40.h,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(images[0]),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
+            SizedBox(
+              height: 70.h,
+              child: PageView.builder(
+                controller: _controller,
+                onPageChanged: (index) => setState(() => _currentPage = index),
+                itemCount: pages.length,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (_, index) {
+                  final page = pages[index];
+                  return Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 2.w),
+                        width: double.infinity,
+                        height: 50.h,
+                        decoration: ShapeDecoration(
+                          image: const DecorationImage(
+                            image: AssetImage(
+                              'assets/images/onboarding_container_bg.png',
+                            ),
+                            fit: BoxFit.fill,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: Center(
+                          child: Container(
+                            width: 80.w,
+                            height: 35.h,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(page['image']!),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 2.h),
+                      Text(
+                        page['title']!,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: const Color(0xFF151515),
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600,
+                          height: 1.5,
+                        ),
+                      ),
+                      SizedBox(height: 2.h),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '${page['desc1']} ',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
+                              ),
+                            ),
+                            TextSpan(
+                              text: page['desc2'],
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
-            SizedBox(height: 2.h),
-            Text(
-              'Welcome to Receipts',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: const Color(0xFF151515),
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w600,
-                height: 1.50,
-              ),
-            ),
-            SizedBox(height: 2.h),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Create professional invoices in seconds.',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w600,
-                      height: 1.50,
-                    ),
-                  ),
-                  TextSpan(
-                    text:
-                        ' Perfect for freelancers, small businesses, and anyone who values their time.',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      height: 1.50,
-                    ),
-                  ),
-                ],
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 2.h),
-            CustomButtom(title: 'Continue'),
+            SizedBox(height: 4.h),
+            CustomButtom(title: 'Continue', onTap: _nextPage),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomButtom extends StatelessWidget {
-  final double? width;
-  final double? height;
-  final Decoration? decoration;
-  final String title;
-  const CustomButtom({
-    super.key,
-    this.width,
-    this.height,
-    this.decoration,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: height ?? double.infinity,
-      height: height ?? 7.h,
-      decoration:
-          decoration ??
-          ShapeDecoration(
-            color: const Color(0xFF45BB50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-          ),
-      child: Center(
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 17.sp,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-          ),
         ),
       ),
     );
