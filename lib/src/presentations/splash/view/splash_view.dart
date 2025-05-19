@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
       if (!mounted) return;
       _timer = Timer(const Duration(seconds: 3), () {
         if (mounted && context.mounted) {
-          context.go('/home');
+          context.go('/setting');
         }
       });
     });

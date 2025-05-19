@@ -19,12 +19,12 @@ class _AppState extends State<App> {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             brightness: Brightness.light,
-            fontFamily: 'Brocil',
+            // fontFamily: 'Brocil',
             extensions: [AppThemeColors.light],
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
-            fontFamily: 'Brocil',
+            // fontFamily: 'Brocil',
             extensions: const [AppThemeColors.dark],
           ),
           routerConfig: RouterConf.goRouter,
