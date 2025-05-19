@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:invoice_maker/src/app/router.dart';
 import 'package:invoice_maker/src/app/themes.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -19,12 +20,12 @@ class _AppState extends State<App> {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             brightness: Brightness.light,
-            fontFamily: 'Brocil',
+            fontFamily: GoogleFonts.poppins().fontFamily,
             extensions: [AppThemeColors.light],
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
-            fontFamily: 'Brocil',
+            fontFamily: GoogleFonts.poppins().fontFamily,
             extensions: const [AppThemeColors.dark],
           ),
           routerConfig: RouterConf.goRouter,

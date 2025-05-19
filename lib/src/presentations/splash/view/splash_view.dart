@@ -19,9 +19,9 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      _timer = Timer(const Duration(seconds: 3), () {
+      _timer = Timer(const Duration(seconds: 2), () {
         if (mounted && context.mounted) {
-          context.go('/home');
+          context.go('/splashGet');
         }
       });
     });
@@ -37,8 +37,8 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       backgrounImageHave: true,
-      backgrounImage: 'assets/images/bg.png',
-      body: Column(),
+      backgrounImage: 'assets/images/bg_sp.png',
+      body: Center(child: Image.asset('assets/images/logo.png')),
     );
   }
 }
