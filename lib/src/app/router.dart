@@ -1,4 +1,7 @@
 import 'package:go_router/go_router.dart';
+import 'package:invoice_maker/src/presentations/dashboard/view/dashboard_view.dart';
+import 'package:invoice_maker/src/presentations/paid_tab_content/view/paid_tab_content_view.dart';
+
 import '../presentations/presentation.dart';
 
 class RouterConst {
@@ -8,11 +11,13 @@ class RouterConst {
   static const String saveEmail = 'saveEmail';
   static const String addLogo = 'addLogo';
   static const String auth = 'auth';
+  static const String dashboard = 'dashboard';
+  static const String paidtabcontent = 'paid_tab_content';
 }
 
 class RouterConf {
   static final GoRouter goRouter = GoRouter(
-    initialLocation: '/splash',
+    initialLocation: '/paid_tab_content',
     routes: [
       GoRoute(
         name: RouterConst.splash,
@@ -43,6 +48,16 @@ class RouterConf {
         name: RouterConst.addLogo,
         path: '/addLogo',
         builder: (context, state) => const AddLogoView(),
+      ),
+      GoRoute(
+        name: RouterConst.dashboard,
+        path: '/dashboard',
+        builder: (context, state) => DashboardView(),
+      ),
+      GoRoute(
+        name: RouterConst.paidtabcontent,
+        path: '/paid_tab_content',
+        builder: (context, state) => PaidTabContentView(),
       ),
     ],
   );
